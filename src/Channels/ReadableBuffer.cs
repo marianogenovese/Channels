@@ -69,11 +69,46 @@ namespace Channels
             _length = buffer._length;
         }
 
+        public ReadCursor IndexOf(byte byte0)
+        {
+            var start = _start;
+            if (IsSingleSpan)
+            {
+                int index = Array.IndexOf(FirstSpan.Array, byte0);
+                if (index == -1)
+                {
+                    return default(ReadCursor);
+                }
+
+                start.Seek(index);
+                return start;
+            }
+
+            int at = 0;
+            foreach (var span in this)
+            {
+                int index = Array.IndexOf(span.Array, byte0);
+                if (index != -1)
+                {
+                    start.Seek(at + index);
+                    return start;
+                }
+
+                at += span.Length;
+            }
+
+            return default(ReadCursor);
+        }
+
         public ReadCursor IndexOf(ref Vector<byte> byte0Vector)
         {
-            var begin = _start;
-            begin.Seek(ref byte0Vector);
-            return begin;
+            foreach (var span in this)
+            {
+                Array.IndexOf(span.Array, byte0Vector[0])
+            }
+            //var begin = _start;
+            //begin.Seek(ref byte0Vector);
+            //return begin;
         }
 
         public ReadCursor IndexOfAny(ref Vector<byte> byte0Vector, ref Vector<byte> byte1Vector)

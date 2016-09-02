@@ -26,6 +26,9 @@ EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Channels.Text.Primitives", "src\Channels.Text.Primitives\Channels.Text.Primitives.xproj", "{A98068AE-C895-4B1F-ADCB-60C70C64F118}"
 EndProject
 Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
